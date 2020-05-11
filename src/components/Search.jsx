@@ -1,32 +1,29 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Book from "./Book.jsx"
 
 export default function Search() {
   const [books, setBooks] = useState("");
   const [result, setResult] = useState([]);
-  function changeHandle(event) {
-    const book = setBooks(event.target.value);
 
-    return book;
-  }
+  const handleChange = (event) => setBooks(event.target.value);
 
-  function submitHandle(event) {
+  function handleSubmit(event) {
     event.preventDefault();
 
     axios
-      .get("https://www.googleapis.com/books/v1/volumes?q=" + books)
+      .get(`https://www.googleapis.com/books/v1/volumes?q=${books}`)
       .then((response) => {
-        console.log(response.data);
         setResult(response.data.items);
       });
   }
 
   return (
     <div className="main">
-      <form className="bookInputForm" onSubmit={submitHandle}>
+      <form className="bookInputForm" onSubmit={handleSubmit}>
         <input
           id="bookInput"
-          onChange={changeHandle}
+          onChange={handleChange}
           className="bookInput"
           type="text"
           placeholder="Name of the book..."
@@ -36,26 +33,7 @@ export default function Search() {
           Find
         </button>
       </form>
-      {result.map((data) => (
-        <div className="bookForm">
-          <img
-            src={data.volumeInfo.imageLinks.thumbnail}
-            alt="bookTitle"
-            className="bookImg"
-          />
-          <div className="bookInfo">
-            <h4 className="bookTitle">Title: {data.volumeInfo.title} </h4>
-            <h4 className="bookPublisher">
-              Publisher: {data.volumeInfo.publisher}
-            </h4>
-            <h4>
-              <a href={data.volumeInfo.canonicalVolumeLink} className="bookUrl">
-                Go to book
-              </a>
-            </h4>
-          </div>
-        </div>
-      ))}
+      <Book result={result}/>
     </div>
   );
 }
