@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Book from "./Book.jsx"
+import Book from "./Book.jsx";
 
 export default function Search() {
   const [books, setBooks] = useState("");
@@ -33,7 +33,9 @@ export default function Search() {
           Find
         </button>
       </form>
-      <Book result={result}/>
+      {result.map((data) => (
+        <Book data={data} />
+      ))}
     </div>
   );
 }
