@@ -1,21 +1,21 @@
 import React from "react";
 
-export default function Book(props) {
+export default function Book({data}) {
   return (
     <div className="bookForm">
       <img
-        src={props.data.volumeInfo.imageLinks.thumbnail}
+        src={data.imageLinks.thumbnail}
         alt="bookTitle"
         className="bookImg"
       />
       <div className="bookInfo">
-        <h4 className="bookTitle">Title: {props.data.volumeInfo.title} </h4>
+        <h4 className="bookTitle">Title: {data.title} </h4>
         <h4 className="bookPublisher">
-          Publisher: {props.data.volumeInfo.publisher}
+          Publisher: {data.publisher}
         </h4>
         <h4>
           <a
-            href={props.data.volumeInfo.canonicalVolumeLink}
+            href={data.canonicalVolumeLink}
             className="bookUrl"
           >
             Go to book

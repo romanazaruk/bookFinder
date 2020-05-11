@@ -34,7 +34,7 @@ export default function Search() {
         </button>
       </form>
       {result.map((data) => (
-        <Book data={data} />
+        <Book data={data.volumeInfo} />
       ))}
     </div>
   );
